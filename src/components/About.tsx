@@ -4,7 +4,7 @@ import { Check, ShieldCheck, Terminal, Award } from "lucide-react";
 
 export default function About() {
   const coreCompetencyList = [
-    "Web applications (React, Next.js, Django, Node)",
+    "Web applications (React, Next.js, Python/Django, Node)",
     "AI automation & intelligent LLM agents",
     "Repeatable CRM workflow linkages",
     "Restful backend APIs & payment gateways",

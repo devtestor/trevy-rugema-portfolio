@@ -3,9 +3,10 @@ import {
   ClientType, 
   ProblemSolve, 
   PackageOffer, 
-  PortfolioProject, 
-  ProcessStep, 
-  Testimonial 
+  PortfolioProject,
+  ProcessStep,
+  Testimonial,
+  TechCategory
 } from "../types";
 
 export const SERVICES: Service[] = [
@@ -343,6 +344,39 @@ export const PROCESS_STEPS: ProcessStep[] = [
     step: 6,
     title: "Support & Improvements",
     description: "I support you post-launch with speed audits, structural backups setup, and operational guidance as your systems expand."
+  }
+];
+
+export const TECH_STACK: TechCategory[] = [
+  {
+    id: "languages",
+    label: "Languages",
+    iconName: "Code2",
+    skills: ["Python", "TypeScript", "JavaScript", "SQL"]
+  },
+  {
+    id: "backend",
+    label: "Backend & APIs",
+    iconName: "Database",
+    skills: ["Django", "Django REST Framework", "Node.js", "Express", "REST APIs", "PostgreSQL"]
+  },
+  {
+    id: "frontend",
+    label: "Frontend",
+    iconName: "LayoutDashboard",
+    skills: ["React", "Next.js", "Tailwind CSS"]
+  },
+  {
+    id: "devops",
+    label: "DevOps & Cloud",
+    iconName: "Server",
+    skills: ["Docker", "GitHub Actions CI/CD", "Nginx", "VPS Hosting"]
+  },
+  {
+    id: "ai-automation",
+    label: "AI & Automation",
+    iconName: "BrainCircuit",
+    skills: ["LLM Agents", "OpenAI SDK", "Gemini SDK", "Workflow Automation"]
   }
 ];
 

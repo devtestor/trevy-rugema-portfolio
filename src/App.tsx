@@ -7,6 +7,7 @@ import Packages from "./components/Packages";
 import Portfolio from "./components/Portfolio";
 import Process from "./components/Process";
 import About from "./components/About";
+import TechStack from "./components/TechStack";
 import Testimonials from "./components/Testimonials";
 import ContactForm from "./components/ContactForm";
 import FinalCTA from "./components/FinalCTA";
@@ -32,6 +33,8 @@ export default function App() {
       <Process />
       <SectionSeparator />
       <About />
+      <SectionSeparator />
+      <TechStack />
       <SectionSeparator />
       <Testimonials />
       <SectionSeparator />

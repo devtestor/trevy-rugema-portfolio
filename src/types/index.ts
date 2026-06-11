@@ -36,6 +36,13 @@ export interface PortfolioProject {
   result: string;
 }
 
+export interface TechCategory {
+  id: string;
+  label: string;
+  iconName: string; // Used to dynamically map Lucide icons
+  skills: string[];
+}
+
 export interface ProcessStep {
   step: number;
   title: string;
