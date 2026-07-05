@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Trevy Rugema AI Automation and Software Systems Engineer">
+  <defs>
+    <linearGradient id="panel" x1="120" y1="80" x2="1080" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f172a" />
+      <stop offset="0.52" stop-color="#020617" />
+      <stop offset="1" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="brand" x1="260" y1="118" x2="386" y2="244" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06b6d4" />
+      <stop offset="0.52" stop-color="#2563eb" />
+      <stop offset="1" stop-color="#4338ca" />
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 120) rotate(55) scale(360 260)">
+      <stop stop-color="#06b6d4" stop-opacity="0.5" />
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(980 530) rotate(55) scale(390 280)">
+      <stop stop-color="#6366f1" stop-opacity="0.42" />
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#020617" />
+  <rect width="1200" height="630" fill="url(#glowA)" />
+  <rect width="1200" height="630" fill="url(#glowB)" />
+  <rect x="72" y="72" width="1056" height="486" rx="34" fill="url(#panel)" stroke="#1e293b" stroke-width="2" />
+  <g opacity="0.16">
+    <path d="M72 186H1128M72 306H1128M72 426H1128" stroke="#38bdf8" />
+    <path d="M240 72V558M480 72V558M720 72V558M960 72V558" stroke="#38bdf8" />
+  </g>
+  <g transform="translate(112 114)">
+    <rect width="104" height="104" rx="24" fill="url(#brand)" />
+    <path d="M32 39l19 15-19 16" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M61 71h23" fill="none" stroke="#cffafe" stroke-width="8" stroke-linecap="round" />
+  </g>
+  <text x="112" y="282" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="0">
+    Trevy Rugema
+  </text>
+  <text x="112" y="348" fill="#67e8f9" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="0">
+    AI Automation &amp; Software Systems Engineer
+  </text>
+  <text x="112" y="414" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="0">
+    Web applications, AI workflows, backend systems,
+  </text>
+  <text x="112" y="452" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="0">
+    API integrations, DevOps, and secure deployments.
+  </text>
+  <g transform="translate(112 498)">
+    <rect width="218" height="44" rx="22" fill="#083344" stroke="#155e75" />
+    <text x="24" y="29" fill="#a5f3fc" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Custom Web Apps</text>
+    <rect x="242" width="196" height="44" rx="22" fill="#172554" stroke="#1d4ed8" />
+    <text x="266" y="29" fill="#bfdbfe" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">AI Automation</text>
+    <rect x="462" width="176" height="44" rx="22" fill="#312e81" stroke="#4f46e5" />
+    <text x="486" y="29" fill="#c7d2fe" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">DevOps</text>
+  </g>
+</svg>

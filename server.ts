@@ -159,46 +159,20 @@ async function startServer() {
 
   // Dynamic sitemap.xml router for perfect search engine indexing
   app.get("/sitemap.xml", (req, res) => {
-    const host = req.headers.host || "trevyrugema.com";
-    const protocol = req.headers["x-forwarded-proto"] === "https" ? "https" : "http";
+    const host = req.headers.host || "trevy.netlify.app";
+    const forwardedProto = req.headers["x-forwarded-proto"];
+    const protocol = Array.isArray(forwardedProto)
+      ? forwardedProto[0]
+      : forwardedProto || (process.env.NODE_ENV === "production" ? "https" : "http");
     const baseUrl = `${protocol}://${host}`;
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${baseUrl}/</loc>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/#services</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/#solutions</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/#portfolio</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/#process</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/#about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/#contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
 </urlset>`;
 
