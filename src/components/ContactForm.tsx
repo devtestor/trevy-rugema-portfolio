@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Send, CheckCircle, Mail, MapPin, Globe, Linkedin, Github } from "lucide-react";
+import { Send, CheckCircle, Mail, MapPin, Twitter, Instagram, Github } from "lucide-react";
 import { ContactFormInput } from "../types";
 
 export default function ContactForm() {
@@ -170,16 +170,7 @@ export default function ContactForm() {
               </span>
               <div className="flex flex-wrap gap-2">
                 <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-850 hover:text-cyan-400 text-slate-300 border border-slate-800 transition-all font-semibold"
-                >
-                  <Linkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </a>
-                <a
-                  href="https://github.com"
+                  href="https://github.com/devtestor"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-850 hover:text-cyan-400 text-slate-300 border border-slate-800 transition-all font-semibold"
@@ -188,13 +179,31 @@ export default function ContactForm() {
                   <span>GitHub</span>
                 </a>
                 <a
-                  href="https://x.com"
+                  href="https://x.com/RugemaTrevy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-850 hover:text-cyan-400 text-slate-300 border border-slate-800 transition-all font-semibold"
                 >
-                  <Globe className="w-4 h-4" />
+                  <Twitter className="w-4 h-4" />
                   <span>X / Twitter</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/trevyrugema/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-850 hover:text-cyan-400 text-slate-300 border border-slate-800 transition-all font-semibold"
+                >
+                  <Instagram className="w-4 h-4" />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://t.me/devtestor"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-850 hover:text-cyan-400 text-slate-300 border border-slate-800 transition-all font-semibold"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>Telegram</span>
                 </a>
               </div>
             </div>

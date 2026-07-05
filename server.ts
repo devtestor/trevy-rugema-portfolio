@@ -1,6 +1,95 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
+
+const contactRecipient = process.env.CONTACT_TO_EMAIL || "trevyrugema@gmail.com";
+const contactSender = process.env.CONTACT_FROM_EMAIL || "Trevy Rugema Portfolio <onboarding@resend.dev>";
+
+type ContactPayload = {
+  name?: string;
+  email?: string;
+  company?: string;
+  service?: string;
+  budget?: string;
+  timeline?: string;
+  message?: string;
+};
+
+function escapeHtml(value = "") {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function buildContactEmail(payload: Required<ContactPayload>) {
+  const fields = [
+    ["Client Name", payload.name],
+    ["Email Address", payload.email],
+    ["Company Name", payload.company || "N/A"],
+    ["Service Needed", payload.service],
+    ["Budget Range", payload.budget || "N/A"],
+    ["Timeline", payload.timeline || "N/A"],
+  ];
+
+  const htmlRows = fields
+    .map(([label, value]) => `<p><strong>${label}:</strong> ${escapeHtml(value)}</p>`)
+    .join("");
+
+  const text = [
+    `Client Name: ${payload.name}`,
+    `Email Address: ${payload.email}`,
+    `Company Name: ${payload.company || "N/A"}`,
+    `Service Needed: ${payload.service}`,
+    `Budget Range: ${payload.budget || "N/A"}`,
+    `Timeline: ${payload.timeline || "N/A"}`,
+    "",
+    "Message:",
+    payload.message,
+  ].join("\n");
+
+  const html = `
+    <h2>New portfolio contact inquiry</h2>
+    ${htmlRows}
+    <p><strong>Message:</strong></p>
+    <p>${escapeHtml(payload.message).replace(/\n/g, "<br />")}</p>
+  `;
+
+  return { html, text };
+}
+
+async function sendContactEmail(payload: Required<ContactPayload>) {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not configured.");
+  }
+
+  const { html, text } = buildContactEmail(payload);
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: contactSender,
+      to: [contactRecipient],
+      reply_to: payload.email,
+      subject: `New project inquiry from ${payload.name}`,
+      html,
+      text,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend email request failed (${response.status}): ${errorText}`);
+  }
+}
 
 async function startServer() {
   const app = express();
@@ -10,8 +99,8 @@ async function startServer() {
   app.use(express.json());
 
   // API router setup
-  app.post("/api/contact", (req, res) => {
-    const { name, email, company, service, budget, timeline, message } = req.body;
+  app.post("/api/contact", async (req, res) => {
+    const { name, email, company, service, budget, timeline, message } = req.body as ContactPayload;
 
     // Validate main required fields
     if (!name || !email || !service || !message) {
@@ -22,23 +111,50 @@ async function startServer() {
       return;
     }
 
+    const trimmedEmail = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      res.status(400).json({
+        success: false,
+        error: "Please provide a valid email address."
+      });
+      return;
+    }
+
+    const payload = {
+      name: name.trim(),
+      email: trimmedEmail,
+      company: company?.trim() || "",
+      service: service.trim(),
+      budget: budget?.trim() || "",
+      timeline: timeline?.trim() || "",
+      message: message.trim(),
+    };
+
     console.log("📩 [Contact Inquiry Received] @", new Date().toISOString());
     console.log(`-----------------------------------------------`);
-    console.log(`Client Name:     ${name}`);
-    console.log(`Email Address:   ${email}`);
-    console.log(`Company Name:    ${company || "N/A"}`);
-    console.log(`Service Needed:  ${service}`);
-    console.log(`Budget Range:    ${budget || "N/A"}`);
-    console.log(`Timeline:        ${timeline || "N/A"}`);
-    console.log(`Message:         ${message}`);
+    console.log(`Client Name:     ${payload.name}`);
+    console.log(`Email Address:   ${payload.email}`);
+    console.log(`Company Name:    ${payload.company || "N/A"}`);
+    console.log(`Service Needed:  ${payload.service}`);
+    console.log(`Budget Range:    ${payload.budget || "N/A"}`);
+    console.log(`Timeline:        ${payload.timeline || "N/A"}`);
+    console.log(`Message:         ${payload.message}`);
     console.log(`-----------------------------------------------`);
 
-    // In a high-complexity app, this would integrate with nodemailer, sendgrid, or resend.
-    // We provide a complete log statement, indicating how to integrate and returning success.
-    res.status(200).json({
-      success: true,
-      message: "Thank you for reaching out, " + name + "! Your inquiry has been sent directly to Trevy. We will get back to you within 24 hours to schedule a consultation."
-    });
+    try {
+      await sendContactEmail(payload);
+
+      res.status(200).json({
+        success: true,
+        message: "Thank you for reaching out, " + payload.name + "! Your inquiry has been sent directly to Trevy. We will get back to you within 24 hours to schedule a consultation."
+      });
+    } catch (error) {
+      console.error("Failed to send contact inquiry email", error);
+      res.status(500).json({
+        success: false,
+        error: "Your message could not be emailed right now. Please email direct to trevyrugema@gmail.com."
+      });
+    }
   });
 
   // Dynamic sitemap.xml router for perfect search engine indexing

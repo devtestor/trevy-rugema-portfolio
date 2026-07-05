@@ -1,5 +1,5 @@
 import React from "react";
-import { Terminal, Github, Linkedin, Mail, Globe } from "lucide-react";
+import { Terminal, Github, Mail, Send, Twitter, Instagram } from "lucide-react";
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -46,13 +46,19 @@ export default function Footer() {
               AI Automation & Software Systems Engineer. I build custom digital engines that save valuable manual hours and directly enhance conversion output.
             </p>
             <div className="flex space-x-3 pt-2">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 transition-colors">
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 transition-colors">
+              <a href="https://github.com/devtestor" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 transition-colors" aria-label="GitHub">
                 <Github className="w-4 h-4" />
               </a>
-              <a href="mailto:trevyrugema@gmail.com" className="text-slate-500 hover:text-cyan-400 transition-colors">
+              <a href="https://x.com/RugemaTrevy" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 transition-colors" aria-label="X / Twitter">
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a href="https://www.instagram.com/trevyrugema/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 transition-colors" aria-label="Instagram">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a href="https://t.me/devtestor" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 transition-colors" aria-label="Telegram">
+                <Send className="w-4 h-4" />
+              </a>
+              <a href="mailto:trevyrugema@gmail.com" className="text-slate-500 hover:text-cyan-400 transition-colors" aria-label="Email">
                 <Mail className="w-4 h-4" />
               </a>
             </div>

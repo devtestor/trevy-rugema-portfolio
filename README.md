@@ -70,82 +70,19 @@ npm run start
 
 ---
 
-## ✉️ Connecting Real Email Services (Nodemailer, Resend, SendGrid)
+## ✉️ Contact Form Email Delivery
 
-By default, the form submits payloads on the frontend to the backend router (`/api/contact` in `server.ts`). To wire up a real email delivery service when migrating, locate the following post handler in `server.ts` and modify as below.
+The contact form posts to `/api/contact` in `server.ts`. The backend sends the inquiry through Resend's HTTP API and only returns success after the email request is accepted.
 
-### 1. Integrating Resend SDK
+Add these environment variables locally and in production:
 
-Install the package:
 ```bash
-npm install resend
+RESEND_API_KEY="re_xxxxxxxxx"
+CONTACT_TO_EMAIL="trevyrugema@gmail.com"
+CONTACT_FROM_EMAIL="Trevy Rugema Portfolio <hello@yourdomain.com>"
 ```
 
-Then edit `/server.ts`:
-```typescript
-import { Resend } from 'resend';
-
-// Lazy initialized Resend instance
-let resendClient: Resend | null = null;
-function getResend() {
-  if (!resendClient) {
-    const key = process.env.RESEND_API_KEY;
-    if (!key) throw new Error("RESEND_API_KEY required");
-    resendClient = new Resend(key);
-  }
-  return resendClient;
-}
-
-// Inside the app.post("/api/contact", async (req, res) => { ... })
-try {
-  const resend = getResend();
-  await resend.emails.send({
-    from: 'Acquisition Bot <bot@yourdomain.com>',
-    to: 'trevyrugema@gmail.com',
-    subject: `🔥 New Client Lead: ${name} (${service})`,
-    html: `
-      <h2>New Lead Captured</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Company:</strong> ${company || "N/A"}</p>
-      <p><strong>Service:</strong> ${service}</p>
-      <p><strong>Budget:</strong> ${budget}</p>
-      <p><strong>Timeline:</strong> ${timeline || "N/A"}</p>
-      <p><strong>Message:</strong><br/>${message}</p>
-    `
-  });
-} catch (err) {
-  console.error(err);
-}
-```
-
-### 2. Integrating Nodemailer (SMTP / Gmail)
-
-Install the library:
-```bash
-npm install nodemailer @types/nodemailer
-```
-
-Then edit `/server.ts`:
-```typescript
-import nodemailer from 'nodemailer';
-
-// Inside the post handler
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.SMTP_USER, // e.g., your-gmail@gmail.com
-    pass: process.env.SMTP_PASS, // App-specific password
-  },
-});
-
-await transporter.sendMail({
-  from: `"${name}" <${email}>`,
-  to: 'trevyrugema@gmail.com',
-  subject: `🔥 Web inquiry: ${service}`,
-  text: `Name: ${name}\nEmail: ${email}\nCompany: ${company}\nBudget: ${budget}\n\nMessage:\n${message}`,
-});
-```
+`CONTACT_FROM_EMAIL` should use a sender on a verified Resend domain for production delivery. Without `RESEND_API_KEY`, the API logs the inquiry but returns an error instead of pretending the email was sent.
 
 ---
 
